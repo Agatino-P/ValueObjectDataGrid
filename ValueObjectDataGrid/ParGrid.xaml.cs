@@ -21,63 +21,17 @@ namespace ValueObjectDataGrid
     /// </summary>
     public partial class ParGrid : UserControl
     {
-        public class ParVM : ViewModelBase
+        public IEnumerable<MyDialogViewModel.ParVM> ParVMs
         {
-            private Par _par;
-            public string Name => _par?.Name;
-
-            private int _val; public int Val { 
-                get => _val; 
-                set { 
-                    Set(() => Val, ref _val, value);
-                    _par = new Par.Builder().WithName(_par.Name).WithVal(value).Build();
-                }
-            }
-
-            //public static implicit operator ParVM(Par par) => new ParVM() { _par=par, Val=par.Val};
-            //public static implicit operator Par(ParVM parVM) => parVM._par;
-
-            public ParVM(Par par)
-            {
-                _par = par;
-                Val = _par.Val;
-            }
-
+            get { return (IEnumerable<MyDialogViewModel.ParVM>)GetValue(ParVMsProperty); }
+            set { SetValue(ParVMsProperty, value); }
         }
-        public IEnumerable<Par> Pars
-        {
-            get { return (IEnumerable<Par> )GetValue(ParsProperty); }
-            set { SetValue(ParsProperty, value); }
-        }
-        public static readonly DependencyProperty ParsProperty =
-            DependencyProperty.Register("Pars", typeof(IEnumerable<Par> ), typeof(ParGrid), new PropertyMetadata(null));
-
-
-
+        public static readonly DependencyProperty ParVMsProperty =
+            DependencyProperty.Register("ParVMs", typeof(IEnumerable<MyDialogViewModel.ParVM>), typeof(ParGrid), new PropertyMetadata(null));
 
         public ParGrid()
         {
             InitializeComponent();
-           
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (Pars!= null)
-            {
-
-            ObservableCollection<ParVM> parVMs = 
-                new ObservableCollection<ParVM>(
-                    Pars.Select(par => (new ParVM (par))))
-                ;
-            dg.ItemsSource = parVMs;
-            }
-        }
-
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            var parVMs=dg.ItemsSource.Cast<ParVM>();
-            Pars = parVMs.Select(parVM => new Par.Builder().WithName(parVM.Name).WithVal(parVM.Val).Build());
         }
     }
 }

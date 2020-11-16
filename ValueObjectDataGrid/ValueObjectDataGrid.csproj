@@ -69,10 +69,12 @@
     <Compile Include="MyDialog.xaml.cs">
       <DependentUpon>MyDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyDialogViewModel.cs" />
     <Compile Include="Par.cs" />
     <Compile Include="ParGrid.xaml.cs">
       <DependentUpon>ParGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ParService.cs" />
     <Compile Include="ValueObject.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

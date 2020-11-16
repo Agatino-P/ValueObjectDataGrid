@@ -13,10 +13,13 @@
         <local:MainWindowViewModel />
     </Window.DataContext>
     <StackPanel>
-
         <Button
             Height="100"
-            Command="{Binding ShowPars}"
+            Command="{Binding EditParsCmd}"
+            Content="Edit" />
+        <Button
+            Height="100"
+            Command="{Binding ShowParsCmd}"
             Content="Show" />
     </StackPanel>
 </Window>

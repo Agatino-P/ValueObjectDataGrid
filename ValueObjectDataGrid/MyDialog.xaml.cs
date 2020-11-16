@@ -18,18 +18,19 @@ namespace ValueObjectDataGrid
     /// Interaction logic for MyDialog.xaml
     /// </summary>
     public partial class MyDialog : Window
+    
     {
-        public ObservableCollection<Par> Pars { get; set; }
-
-        public MyDialog()
+        MyDialogViewModel _mdvm;
+        public MyDialog(MyDialogViewModel mdvm)
         {
+            _mdvm = mdvm;
+            DataContext = _mdvm;
             InitializeComponent();
             
         }
 
         private void mydlg_Loaded(object sender, RoutedEventArgs e)
         {
-            pg.Pars = Pars;
         }
     }
 }
